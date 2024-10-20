@@ -1,23 +1,33 @@
 import { Colors } from '@/constants/Colors';
+import { useAppSelector } from '@/hooks/reduxHooks';
+import { useState } from 'react';
 import { Button, StyleSheet, TextInput } from 'react-native';
 import { Text, View } from "react-native";
+import { useDispatch } from 'react-redux';
+import { setUsername } from '@/redux/usernameSlice';
 
 export default function Index() {    
-    
-    function onPressLearnMore() {
-        console.log(123);
+    const username = useAppSelector(state => state.username.value);
+    const dispatch = useDispatch();
+    const [usernameInputValue, setUsernameInputValue] = useState("");
+
+    function saveUsername() {
+        dispatch(setUsername(usernameInputValue));
+        setUsernameInputValue("");
     }
 
 	return (
 		<View style={styles.container}>
-            <Text style={styles.welcomeText}>Welcome 👋</Text>
+            <Text style={styles.welcomeText}>Welcome {username} 👋</Text>
 
             <TextInput 
+                value={usernameInputValue}
+                onChangeText={setUsernameInputValue}
                 placeholder='Enter your username'
                 style={styles.usernameInput}
             />
             <Button
-                onPress={onPressLearnMore}
+                onPress={saveUsername}
                 title="Save"
                 color={ Colors.light.text }
                 accessibilityLabel="Save your username"

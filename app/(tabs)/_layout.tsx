@@ -3,7 +3,7 @@ import { Tabs } from "expo-router";
 
 export default function TabLayout() {
     return (
-        <Tabs screenOptions={{ headerShown: false }}>
+        <Tabs>
             <Tabs.Screen 
                 name="settings" 
                 options={{
